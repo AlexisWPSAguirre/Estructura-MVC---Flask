@@ -7,5 +7,5 @@ config = {
     'password': '',
     'database': 'flask_mvc'
 }
-
+#**config envia los atributos de un diccionario como parametros de una función
 DB = mariadb.connect(**config)
