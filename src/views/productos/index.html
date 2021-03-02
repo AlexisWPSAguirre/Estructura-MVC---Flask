@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Productos
+{% endblock %}
+
+{% block content %}  
+    <h1>Listado de productos</h1>
+    <!-- Target para abrir en otra pestaña -->
+    <a href="{{url_for('crear_producto')}}">Crear</a>
+    <table class="table">
+        <thead >
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Precio Venta</th>
+                <th>Precio Compra</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{producto[0]}}</td>
+                <td>{{producto[1]}}</td>
+                <td>{{producto[2]}}</td>
+                <td>{{producto[3]}}</td>
+                <td>{{producto[4]}}</td>
+                <td>{{producto[5]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
