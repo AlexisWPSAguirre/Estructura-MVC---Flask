@@ -1,0 +1,73 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Editar Producto
+{% endblock %}
+
+{% block content %} 
+    <h1 >Editar Producto</h1>
+    <div class="mb-3">
+        <button class="btn btn-secondary"><a class="text-white" style=text-decoration:none href="{{url_for('productos')}}">Volver</a></button>
+    </div>
+    <form  method="POST">
+        <div class="mb-3">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="{{productos[1]}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion">Descripcion</label>
+            <textarea class="md-textarea form-control" id="descripcion" name="descripcion" rows="2" placeholder="{{productos[2]}}" required></textarea>  
+        </div>
+        <div class="mb-3">
+            <label for="val_compra">Precio de Compra</label>
+            <input type="number" class="form-control" id="val_compra" name="val_compra" value="{{productos[4]}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="val_venta">Precio de Venta</label>
+            <input type="number" class="form-control" id="val_venta" name="val_venta" value="{{productos[3]}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="ganancia">Ganancia</label>
+            <input type="number" class="form-control  " id="ganancia" name="ganancia" value="{{productos[5]}}"></div>
+        <div class="mb-3">
+            <label for="estado">Estado</label>
+            <select class="form-control" name="estado" id="estado"> 
+                <option value="Activo">Stock</option>
+                <option value="Inactivo">Sin Stock</option>
+            </select>
+        </div>
+        <!-- Al ser tipo submit ejecutará la acción atributo de form -->
+        <div class="mt-3">
+            <button class="btn btn-success" type="submit">Guardar</button>
+        </div>
+    </form>
+    <script>
+        let inputPrecioCompra = document.querySelector('#val_compra')
+        let inputPrecioVenta = document.querySelector('#val_venta')
+        let inputGanancia = document.querySelector('#ganancia')
+
+        //Funciona como las rutas y funciones de flask
+        inputPrecioCompra.addEventListener('change',cambioPrecioCompra)
+        function cambioPrecioCompra(a)
+        {
+            console.log("Cambiando precio de compra")
+        }
+
+        inputPrecioVenta.addEventListener('change',cambioPrecioVenta)
+        function cambioPrecioVenta(a)
+        {
+            let precio_venta = parseInt(inputPrecioVenta.value)
+            let precio_compra = parseInt(inputPrecioCompra.value)
+            let ganancia = Math.round(((precio_venta - precio_compra)/ precio_compra) * 100)
+            inputGanancia.value = ganancia
+        }
+        
+        inputGanancia.addEventListener('change', cambioGanancia)
+        function cambioGanancia(a){
+            let precio_compra = parseInt(inputPrecioCompra.value)
+            let ganancia = parseInt(inputGanancia.value)
+            let precio_venta = (precio_compra * (ganancia/100)) + precio_compra
+            inputPrecioVenta.value = precio_venta
+        }
+    </script>
+{% endblock %} 

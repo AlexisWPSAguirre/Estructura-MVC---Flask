@@ -7,27 +7,34 @@
 {% block content %}  
     <h1>Listado de productos</h1>
     <!-- Target para abrir en otra pestaña -->
-    <a href="{{url_for('crear_producto')}}">Crear</a>
+    <button class="btn btn-secondary"><a class="text-white" style=text-decoration:none href="{{url_for('crear_producto')}}">Crear</a></button>
     <table class="table">
         <thead >
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
-                <th>Precio Venta</th>
                 <th>Precio Compra</th>
+                <th>Precio Venta</th>
+                <th>Ganancia %</th>
                 <th>Estado</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             {% for producto in productos %}
             <tr>
-                <td>{{producto[0]}}</td>
+                <td>{{loop.index}}</td>
                 <td>{{producto[1]}}</td>
                 <td>{{producto[2]}}</td>
                 <td>{{producto[3]}}</td>
                 <td>{{producto[4]}}</td>
                 <td>{{producto[5]}}</td>
+                <td>{{producto[6]}}</td>
+                <td>
+                    <button class="btn btn-success" ><a class="text-white" style="text-decoration:none" href="{{url_for('editar_producto', id=producto[0])}}">Editar</a></button>
+                    <button class="btn btn-danger"><a class="text-white" style="text-decoration:none" href="{{url_for('eliminar_producto', id=producto[0])}}">Eliminar</a></button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

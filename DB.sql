@@ -20,18 +20,19 @@ USE `flask_mvc`;
 CREATE TABLE IF NOT EXISTS `productos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
-  `descripcion` text DEFAULT NULL,
+  `descripcion` mediumtext DEFAULT 'Ninguna',
   `precio_venta` varchar(255) NOT NULL,
   `precio_compra` varchar(255) NOT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT 1,
+  `ganancia` varchar(255) DEFAULT NULL,
+  `estado` varchar(255) NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla flask_mvc.productos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio_venta`, `precio_compra`, `estado`) VALUES
-	(11, 'Leche', NULL, '3.000', '2.500', 1),
-	(12, 'Gaseosa', NULL, '$5.000', '$4.000', 1);
+INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio_venta`, `precio_compra`, `ganancia`, `estado`) VALUES
+	(20, 'Gaseosa', 'Docena', '624000', '480000', '30', 'Activo'),
+	(21, 'Saltina', 'Ricas', '1500', '1000', '50', 'Inactivo');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

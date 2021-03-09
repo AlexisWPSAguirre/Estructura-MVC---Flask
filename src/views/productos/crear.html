@@ -6,29 +6,34 @@
 
 {% block content %}  
     <h1>Crear producto</h1>
-    <a href="{{url_for('productos')}}">Volver</a>
+    <div class="mb-3">
+        <button class="btn btn-secondary"><a class="text-white" style="text-decoration: none;" href="{{url_for('productos')}}">Volver</a></button>
+    </div>
     <form action="{{url_for('crear_producto')}}" method="POST">
-        <div class="form-group">
+        <div class="mb-3">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre">
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="descripcion">Descripcion</label>
-            <textarea class="md-textarea form-control" id="descripcion" rows="2"></textarea>  
+            <textarea class="md-textarea form-control" id="descripcion" name="descripcion" rows="2" required></textarea>  
         </div>
-        <div class="form-group">
-            <label for="val_venta">Precio de Venta</label>
-            <input type="text" class="form-control" id="val_venta" name="val_venta">
-        </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="val_compra">Precio de Compra</label>
-            <input type="text" class="form-control" id="val_compra" name="val_compra">
+            <input type="number" class="form-control" id="val_compra" name="val_compra" required>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
+            <label for="val_venta">Precio de Venta</label>
+            <input type="number" class="form-control" id="val_venta" name="val_venta" required>
+        </div>
+        <div class="mb-3">
+            <label for="ganancia">Ganancia</label>
+            <input type="number" class="form-control  " id="ganancia" name="ganancia"></div>
+        <div class="mb-3">
             <label for="estado">Estado</label>
             <select class="form-control" name="estado" id="estado"> 
-                <option value="1" selected>Stock</option>
-                <option value="0">Sin Stock</option>
+                <option value="Activo" selected>Stock</option>
+                <option value="Inactivo">Sin Stock</option>
             </select>
         </div>
         <!-- Al ser tipo submit ejecutará la acción atributo de form -->
@@ -36,5 +41,42 @@
             <button class="btn btn-success" type="submit">Guardar</button>
         </div>
     </form>
+    <script>
+        /*
+        Declarar variables:
+            Let o Var (Recomendado Let)
+        Constantes:
+            Const
+        Funciones:
+            Function () {}
+            console.log("Hola desde JS")
+        */
+        let inputPrecioCompra = document.querySelector('#val_compra')
+        let inputPrecioVenta = document.querySelector('#val_venta')
+        //Solo se usa el Id, mientras que el query usa otros atributos como para ser más 
+        //Especifico
+        let inputGanancia = document.getElementById('ganancia')
+        // El input se recoge como string
+        inputPrecioCompra.addEventListener('change',cambioPrecioCompra)
+        function cambioPrecioCompra(a)
+        {
+            console.log("Cambiando precio de compra")
+        }
+        inputPrecioVenta.addEventListener('change',cambioPrecioVenta)
+        function cambioPrecioVenta(a)
+        {
+            let precio_venta = parseInt(inputPrecioVenta.value)
+            let precio_compra = parseInt(inputPrecioCompra.value)
+            let ganancia = Math.round(((precio_venta - precio_compra)/ precio_compra) * 100)
+            inputGanancia.value = ganancia
+        }
+        inputGanancia.addEventListener('change', cambioGanancia)
+        function cambioGanancia(a){
+            let precio_compra = parseInt(inputPrecioCompra.value)
+            let ganancia = parseInt(inputGanancia.value)
+            let precio_venta = (precio_compra * (ganancia/100)) + precio_compra
+            inputPrecioVenta.value = precio_venta
+        }
+    </script>
 {% endblock %}
 
