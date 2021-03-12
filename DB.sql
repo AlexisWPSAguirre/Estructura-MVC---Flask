@@ -13,8 +13,6 @@
 
 
 -- Volcando estructura de base de datos para flask_mvc
-CREATE DATABASE IF NOT EXISTS `flask_mvc` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `flask_mvc`;
 
 -- Volcando estructura para tabla flask_mvc.productos
 CREATE TABLE IF NOT EXISTS `productos` (
