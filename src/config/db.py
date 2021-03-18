@@ -1,48 +1,30 @@
 import mariadb
-from flask import render_template
-import src.config.g as glo
 from os import path
+import json
+import src.config.g as g
 
-config = {
-    'host': 'localhost',
-    'port': 3308,
-    'user': 'root',
-    'password': '',
-    'database': 'flask_mvc'
-}
+CONEXION_PATH = path.abspath('src/config/conexion.json')
+SQL_PATH = path.abspath('DB.sql')
 
-try: 
-    glo.DB = mariadb.connect(**config)
-    glo.DB.autocommit = True    
-except: 
-    glo.DB = False
-    
+def installDB():
+    fileSQL = open(SQL_PATH, 'r')
+    sql = fileSQL.read()
+    sqlCommands = sql.split(';')
+    cursor = g.DB.cursor()
+    for command in sqlCommands:
+        try:
+            if command.strip != '':
+                cursor.execute(command)
+        except:
+            print('skip command')
 
-class Bases():
-    def conexion(nombre,usuario,contrasena,servidor,puerto):
-        config = {
-            'host': servidor,
-            'port': puerto,
-            'user': usuario,
-            'password': contrasena,
-            'database': nombre
-        }
-        try: 
-            glo.DB = mariadb.connect(**config)
-            glo.DB.autocommit = True    
-        except: 
-            glo.DB = False
+def createDB():
+    if path.exists(CONEXION_PATH):
+        file_conexion = open(CONEXION_PATH, 'r')
+        config = json.loads(file_conexion.read())
+        g.DB = mariadb.connect(**config)
+        g.DB.autocommit = True
+    else:
+        g.DB = False
 
-    def instalarDB():
-        SQL_PATH = path.abspath('DB.sql')
-        file_sql = open(SQL_PATH, 'r')
-        sql = file_sql.read()
-        cursor = glo.DB.cursor()
-        sqlCommands = sql.split(';')    
-        for command in sqlCommands:
-            try:
-                if command.strip() != '':
-                    cursor.execute(command)
-            except:
-                print ("Saltando comando")
-        cursor.close()
+createDB()

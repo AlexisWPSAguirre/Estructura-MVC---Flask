@@ -1,32 +1,42 @@
 from flask import render_template,request, redirect, url_for
-import src.config.g as glo
+import src.config.g as g
 from src import app
 from src.models.productos import ProductosModel
+from src.config.db import createDB, installDB
+import json
 
-
-from src.config.db import Bases
 #Para hace uso de la plantilla de rutas necesitamos importar la app creada en flask
 #Tambien importan el render template desde flask
 @app.route('/')
 def index():
-    if(glo.DB == False):
+    if(g.DB == False):
         return render_template('instalacion.html')
     productosModel = ProductosModel()
     productos = productosModel.traerTodos()
     return render_template('productos/index.html',productos=productos)
     
-@app.route('/productosss', methods=['GET','POST'])
+@app.route('/TeMeCuidas', methods=['GET','POST'])
 def instalar():
     if request.method == 'POST':
-        nombre = request.form.get('nombre')   
-        usuario = request.form.get('usuario')   
-        contrasena = request.form.get('contrasena')  
-        servidor = request.form.get('servidor') 
-        puerto = request.form.get('puerto') 
-        puerto = int(puerto)
+        name = request.form.get('nombre')   
+        user = request.form.get('usuario')   
+        password = request.form.get('contrasena')  
+        server = request.form.get('servidor') 
+        port = request.form.get('puerto') 
 
-        Bases.conexion(nombre,usuario,contrasena,servidor,puerto)    
-        Bases.instalarDB()
+        dbData = {
+        'host' : server,
+        'port' : int(port),
+        'user' : user,
+        'password' : password,
+        'database' : name,
+        }
+
+        file = open('src/config/conexion.json', 'w')
+        file.write(json.dumps(dbData))
+        file.close()
+        createDB()
+        installDB()
         productosModel = ProductosModel()
         productos = productosModel.traerTodos()
         return render_template('productos/index.html',productos=productos)
