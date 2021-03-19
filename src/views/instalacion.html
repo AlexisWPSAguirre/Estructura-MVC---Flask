@@ -5,30 +5,27 @@
 {% endblock %}
 
 {% block content %}  
-    <h1>Mini WordPress</h1>
+    <h1>Gui para Maria DB</h1>
+    <p>Ingrese los datos de mariaDB</p>
     <form action="{{url_for('instalar')}}" method="POST">
-        <div  class="mb-3"> 
-            <label>Nombre de la Base de datos:</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" >
-        </div>
         <div  class="mb-3">
-            <label>Nombre de usuario:</label>
-            <input type="text" class="form-control" id="usuario" name="usuario" >
-        </div>
-        <div  class="mb-3">
-            <label>Contraseña:</label>
-            <input type="text" class="form-control" id="contrasena" name="contrasena" >
-        </div>
-        <div  class="mb-3">
-            <label>Servidor de la base de datos:</label>
+            <label>Host:</label>
             <input type="text" class="form-control" id="servidor" name="servidor" >
+        </div>
+        <div  class="mb-3">
+            <label>Usuario:</label>
+            <input type="text" class="form-control" id="usuario" name="usuario" >
         </div>
         <div  class="mb-3">
             <label>Puerto:</label>
             <input type="text" class="form-control" id="puerto" name="puerto" >
         </div>
+        <div  class="mb-3">
+            <label>Contraseña:</label>
+            <input type="text" class="form-control" id="contrasena" name="contrasena" >
+        </div>
         <div class="mb-3">
-            <button type="submit" class="btn btn-success">Instalar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
         </div>
     </form>
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'layouts/db_base.html' %}
+
+{% block title %}
+    Tablas
+{% endblock %}
+
+{% block content %} 
+<ul>
+    <p>Lista de Tablas:</p>
+    {% for base in bases %}
+        <li><a href="{{url_for('listarDB', id=base[0])}}">{{base[0]}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
