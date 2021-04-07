@@ -1,0 +1,27 @@
+{% extends 'layouts/db_base.html' %}
+
+{% block title %}
+    Tablas
+{% endblock %}
+
+{% block content %} 
+    <h1>Registros</h1>
+    <table class="table">
+        <th>
+            <tr>
+                {% for th in describe %}
+                    <td>{{th[0]}}</td>
+                {% endfor%}
+            </tr>
+        </th>
+        <tbody>
+            {% for td in registros %}
+                <tr>
+                    {% for tdAnidado in td %}
+                    <td>{{tdAnidado}}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

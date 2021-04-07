@@ -6,9 +6,38 @@
 
 {% block content %} 
 <ul>
-    <p>Lista de Tablas:</p>
-    {% for base in bases %}
-        <li><a href="{{url_for('listarDB', id=base[0])}}">{{base[0]}}</a></li>
+    <h1>Lista de Tablas:</h1>
+    <h1>Descripcion </h1>
+    {% set count = [0] %}
+    {% for tabla in tablas %}
+    <h3>{{tabla[0]}}</h3>                
+        <li><a href="{{url_for('registrosTB', id=tabla[0], cont = count[0])}}">Registros</a></li>
+    <table class="table">
+        <th>
+            <tr>
+                <td>Field</td>
+                <td>Type</td>
+                <td>Null</td>
+                <td>Key</td>
+                <td>Default</td>
+                <td>Extra</td>
+            </tr>
+        </th>
+        <tbody>
+            {% for row in describes[count[0]] %}
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td>{{row[4]}}</td>
+                <td>{{row[5]}}</td>
+            </tr>
+            {% endfor%}
+        
+        </tbody>
+    </table>
+    {% if count.append(count.pop() + 1) %}{% endif %}
     {% endfor %}
 </ul>
 {% endblock %}

@@ -27,25 +27,5 @@ def createDB():
     else:
         g.DB = False
 
-def listarBases():
-    bases = []
-    cursor = g.DB.cursor()
-    cursor.execute('show databases')
-    for base in cursor:
-        bases.append(base)
-    g.DB.close()
-    return bases
-
-def listarTablas(db):
-    tables = []
-    cursor = g.DB.cursor()
-    cursor.execute("""USE (?)""",(db,))
-    for table in cursor:
-        tables.append(table)
-    g.DB.close()
-    print(tables)
-    return tables
-
-
 
 createDB()
