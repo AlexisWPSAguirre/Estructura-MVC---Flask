@@ -1,7 +1,7 @@
 from flask import render_template,request, redirect, url_for
 import src.config.g as g
 from src import app
-from src.models.productos import ProductosModel
+from src.models.proyectos import ProyectosModel
 from src.config.db import createDB, installDB
 import json
 
@@ -11,11 +11,11 @@ import json
 def index():
     if(g.DB == False):
         return render_template('instalacion.html')
-    productosModel = ProductosModel()
-    productos = productosModel.traerTodos()
-    return render_template('productos/index.html',productos=productos)
+    proyectosModel = ProyectosModel()
+    proyectos = proyectosModel.traerTodos()
+    return render_template('contratos/index_proyectos.html', proyectos = proyectos)
     
-@app.route('/TeMeCuidas', methods=['GET','POST'])
+@app.route('/instalacion', methods=['GET','POST'])
 def instalar():
     if request.method == 'POST':
         name = request.form.get('nombre')   
@@ -31,15 +31,12 @@ def instalar():
         'password' : password,
         'database' : name,
         }
-
         file = open('src/config/conexion.json', 'w')
         file.write(json.dumps(dbData))
         file.close()
         createDB()
         installDB()
-        productosModel = ProductosModel()
-        productos = productosModel.traerTodos()
-        return render_template('productos/index.html',productos=productos)
+        return render_template('contratos/index_contratos.html')
 
     
 

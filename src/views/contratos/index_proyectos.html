@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Proyectos
+{% endblock %}
+
+{% block content %}  
+    <h1>Proyectos</h1>
+    <table class="table">
+        <thead >
+            <tr>
+                <th>ID</th>
+                <th>No.Proyecto</th>
+                <th>Proceso</th>
+                <th>Fecha Iniciación</th>
+                <th>Fecha Terminación</th>
+                <th>Fecha Liquidación</th>
+                <th>Supervision/Interventoria</th>
+                <th>Contratista</th>
+                <th>Objeto</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proyecto in proyectos %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{proyecto[1]}}</td>
+                <td>{{proyecto[2]}}</td>
+                <td>{{proyecto[3]}}</td>
+                <td>{{proyecto[4]}}</td>
+                <td>{{proyecto[5]}}</td>
+                <td>{{proyecto[6]}}</td>
+                <td>{{proyecto[7]}}</td>
+                <td>{{proyecto[8]}}</td>
+                <td>
+                    <div class="mb-3">
+                        <button class="btn btn-success" ><a class="text-white" style="text-decoration:none" href="{{url_for('editar_proyecto', id=proyecto[0])}}">Editar</a></button>
+                    </div>
+                        <button class="btn btn-danger"><a class="text-white" style="text-decoration:none" href="">Eliminar</a></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

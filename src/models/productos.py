@@ -10,7 +10,6 @@ class ProductosModel():
         cursor.execute('select * from productos')
         productos = cursor.fetchall()
         cursor.close()
-
         return productos
     
     def crear(self, nombre,descripcion,val_venta,val_compra,ganancia,estado):

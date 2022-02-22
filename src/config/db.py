@@ -1,5 +1,6 @@
-import mariadb
+import psycopg2
 from os import path
+import mariadb
 import json
 import src.config.g as g
 
@@ -22,7 +23,7 @@ def createDB():
     if path.exists(CONEXION_PATH):
         file_conexion = open(CONEXION_PATH, 'r')
         config = json.loads(file_conexion.read())
-        g.DB = mariadb.connect(**config)
+        g.DB = psycopg2.connect(**config)
         g.DB.autocommit = True
     else:
         g.DB = False
