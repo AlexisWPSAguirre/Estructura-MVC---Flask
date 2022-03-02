@@ -4,4 +4,6 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 mariadb==1.0.9
 MarkupSafe==1.1.1
+mod-wsgi @ file:///C:/Users/Alexis/Downloads/mod_wsgi-4.9.0-cp310-cp310-win_amd64.whl
+psycopg2==2.9.3
 Werkzeug==1.0.1
